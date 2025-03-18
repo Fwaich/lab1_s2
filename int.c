@@ -35,6 +35,31 @@ void fill_int_vector(Vector* v){
     }
 }
 
+Vector* add_int(Vector* v1, Vector* v2){
+    Vector* v_res = v1->table->new(v1->table, v1->vec->dim);
+    int* v1_data = (int *)v1->vec->data;
+    int* v2_data = (int *)v2->vec->data;
+
+    for (int i = 0; i < v1->vec->dim; i++){
+        int result = v1_data[i] + v2_data[i];
+        ((int*)v_res->vec->data)[i] = result;
+    }
+    return v_res;
+}
+
+Vector* int_dot_product(Vector* v1, Vector* v2){
+    Vector* v_res = v1->table->new(v1->table, 1);
+    int* v1_data = (int *)v1->vec->data;
+    int* v2_data = (int *)v2->vec->data;
+    int result = 0;
+    
+    for (int i = 0; i < v1->vec->dim; i++){
+        result += v1_data[i] * v2_data[i];
+    }
+    ((int*)v_res->vec->data)[0] = result;
+    return v_res;
+}
+
 char* to_char_int(Vector* v) {
     if (!v || !v->vec || !v->vec->data) return NULL;
 
@@ -59,6 +84,8 @@ Vtable* create_int(){
     int_table->delete = delete_int_vector;
     int_table->fill_vector = fill_int_vector;
     int_table->to_char = to_char_int;
+    int_table->add = add_int; 
+    int_table->dot_product = int_dot_product;
     return int_table;
 }
 

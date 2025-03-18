@@ -13,7 +13,7 @@ typedef struct Vtable{
     void (*delete)(Vector* v);
     void (*fill_vector)(Vector* v);
     Vector* (*add)(Vector* v1, Vector* v2);
-    // Vector* (*dot_product)(Vector* v1, Vector* v2);
+    Vector* (*dot_product)(Vector* v1, Vector* v2);
     char* (*to_char)(Vector* v);
 }Vtable;
     
