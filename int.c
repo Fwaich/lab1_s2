@@ -14,7 +14,7 @@ Vector* new_int_vector(Vtable* t, int sz){
 }
 
 void delete_int_vector(Vector* v){
-    if (!v) return;
+    if(!v) return;
     if (v->vec) { 
         if (v->vec->data) {
             free(v->vec->data);
@@ -44,6 +44,7 @@ Vector* add_int(Vector* v1, Vector* v2){
         int result = v1_data[i] + v2_data[i];
         ((int*)v_res->vec->data)[i] = result;
     }
+
     return v_res;
 }
 
@@ -57,6 +58,7 @@ Vector* int_dot_product(Vector* v1, Vector* v2){
         result += v1_data[i] * v2_data[i];
     }
     ((int*)v_res->vec->data)[0] = result;
+
     return v_res;
 }
 
@@ -66,7 +68,6 @@ char* to_char_int(Vector* v) {
     int* data = (int*)v->vec->data;
     int max_len = v->vec->dim * 10;
     char* v_str = (char*)malloc(max_len);
-
     v_str[0] = '\0';
 
     for (int i = 0; i < v->vec->dim; i++) {

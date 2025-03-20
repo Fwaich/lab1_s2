@@ -19,18 +19,15 @@ int main() {
     while (1){
         printf("\n1.Заполнить вектор 1\n");
         printf("2.Заполнить вектор 2\n");
-        printf("3.Вывестим вектор 1\n");
-        printf("4.Вывестим вектор 2\n");
-        printf("5.Сумма векторов\n");
-        printf("6.Произведение векторов\n");
-        printf("7.Результат последней операции\n");
-        printf("8.Завершить программу\n");
+        printf("3.Сумма векторов\n");
+        printf("4.Произведение векторов\n");
+        printf("5.Завершить программу\n");
         printf("\nВыберите опцию: ");
 
         if (scanf("%d", &opt) == EOF) {
             printf("\n");
-            opt = 8;
-        } else if (opt > 8 || opt < 1) {
+            opt = 5;
+        } else if (opt > 5 || opt < 1) {
             printf("Такой опции нет.\n");
             while(getchar() != '\n');
         }
@@ -40,54 +37,35 @@ int main() {
         char* output = NULL;
         switch(opt){
             case 1:
-                if (vec1) vec1->table->delete(vec1);
+                delete_vector(vec1);
                 printf("Введите количество эллементов: ");
                 scanf("%d", &size);
-                vec1 = int_type->new(int_type, size);
-                vec1->table->fill_vector(vec1);
+                vec1 = new(int_type, size);
+                fill_vector(vec1);
                 break; 
             case 2:
-                if (vec2) vec2->table->delete(vec2);
+                delete_vector(vec2);
                 printf("Введите количество эллементов: ");
                 scanf("%d", &size);
-                vec2 = int_type->new(int_type, size);
-                vec2->table->fill_vector(vec2);
+                vec2 = new(int_type, size);
+                fill_vector(vec2);
                 break; 
             case 3:
-                output = vec1->table->to_char(vec1);
-                printf("%s\n", output);
-                break;
+                delete_vector(vec_res);
+                vec_res = add(vec1, vec2);
+                output = to_char(vec_res);
+                if (output) printf("%s\n", output);
+                break; 
             case 4:
-                output = vec2->table->to_char(vec2);
-                printf("%s\n", output);
+                delete_vector(vec_res);
+                vec_res = dot_product(vec1, vec2);
+                output = to_char(vec_res);
+                if (output) printf("%s\n", output);
                 break;
             case 5:
-                if (vec_res) vec_res->table->delete(vec_res);
-                if (vec1->table != vec2->table || vec1->vec->dim != vec2->vec->dim){
-                    printf("Разные типы или размеры\n");
-                    break;
-                }
-                vec_res = vec1->table->add(vec1, vec2);
-                output = vec_res->table->to_char(vec_res);
-                printf("%s\n", output);
-                break; 
-            case 6:
-                if (vec_res) vec_res->table->delete(vec_res);
-                if (vec1->table != vec2->table || vec1->vec->dim != vec2->vec->dim){
-                    printf("Разные типы или размеры\n");
-                    break;
-                }
-                vec_res = vec1->table->dot_product(vec1, vec2);
-                output = vec_res->table->to_char(vec_res);
-                printf("%s\n", output);
-                break;
-            case 7:
-
-                break;
-            case 8:
-                if (vec1) vec1->table->delete(vec1);
-                if (vec2) vec2->table->delete(vec2);
-                if (vec_res) vec_res->table->delete(vec_res);
+                delete_vector(vec1);
+                delete_vector(vec2);
+                delete_vector(vec_res);
                 free(int_type);
                 return 0;
         }
