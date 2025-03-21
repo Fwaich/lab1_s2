@@ -66,14 +66,18 @@ char* to_char_int(Vector* v) {
     if (!v || !v->vec || !v->vec->data) return NULL;
 
     int* data = (int*)v->vec->data;
-    int max_len = v->vec->dim * 10;
-    char* v_str = (char*)malloc(max_len);
-    v_str[0] = '\0';
-
+    int total_size = 1;
+    
     for (int i = 0; i < v->vec->dim; i++) {
-        char el_str[10];
-        sprintf(el_str, "%d ", data[i]);
-        strcat(v_str, el_str);
+        total_size += snprintf(NULL, 0, "%d ", data[i]);
+    }
+
+    char* v_str = (char*)malloc(total_size);
+    if (!v_str) return NULL;
+
+    char* ptr = v_str;
+    for (int i = 0; i < v->vec->dim; i++) {
+        ptr += sprintf(ptr, "%d ", data[i]);
     }
 
     return v_str;

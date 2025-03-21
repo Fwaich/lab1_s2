@@ -48,6 +48,42 @@ void fill_complex_vector(Vector* v){
     }
 }
 
+Vector* add_complex(Vector* v1, Vector* v2){
+    Vector* v_res = v1->table->new(v1->table, v1->vec->dim);
+    Complex* v1_data = (Complex *)v1->vec->data;
+    Complex* v2_data = (Complex *)v2->vec->data;
+    Complex* res_data = (Complex *)v_res->vec->data;
+
+    for (int i = 0; i < v1->vec->dim; i++){
+        res_data[i].Re = v1_data[i].Re + v2_data[i].Re;
+        res_data[i].Im = v2_data[i].Im + v2_data[i].Im; 
+    }
+
+    return v_res;
+}
+
+
+Vector* complex_dot_product(Vector* v1, Vector* v2){
+    Vector* v_res = v1->table->new(v1->table, 1);
+    Complex* v1_data = (Complex *)v1->vec->data;
+    Complex* v2_data = (Complex *)v2->vec->data;
+    Complex* res_data = (Complex *)v_res->vec->data;
+
+    int Re_result = 0;
+    int Im_result = 0;
+    for (int i = 0; i < v1->vec->dim; i++){
+        int Re = (v1_data[i].Re * v2_data[i].Re) - (v2_data[i].Im * v2_data[i].Im);
+        int Im = (v1_data[i].Re * v2_data[i].Re) + (v2_data[i].Im * v2_data[i].Im);
+        Re_result += Re;
+        Im_result += Im;
+    }
+
+    res_data->Re = Re_result;
+    res_data->Im = Im_result;
+
+
+    return v_res;
+}
 
 
 Vtable* create_complex(){
@@ -56,7 +92,7 @@ Vtable* create_complex(){
     complex_table->delete = delete_complex_vector;
     complex_table->fill_vector = fill_complex_vector;
     // complex_table->to_char = to_char_complex;
-    // complex_table->add = add_complex; 
+    complex_table->add = add_complex; 
     // complex_table->dot_product = complex_dot_product;
     return complex_table;
 }

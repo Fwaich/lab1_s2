@@ -12,4 +12,6 @@ void delete_complex_vector(Vector* v);
 
 void fill_complex_vector(Vector* v);
 
+Vector* add_complex(Vector* v1, Vector* v2);
+
 Vtable* create_complex();
