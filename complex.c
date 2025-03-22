@@ -72,8 +72,8 @@ Vector* complex_dot_product(Vector* v1, Vector* v2){
     int Re_result = 0;
     int Im_result = 0;
     for (int i = 0; i < v1->vec->dim; i++){
-        int Re = (v1_data[i].Re * v2_data[i].Re) - (v2_data[i].Im * v2_data[i].Im);
-        int Im = (v1_data[i].Re * v2_data[i].Re) + (v2_data[i].Im * v2_data[i].Im);
+        int Re = (v1_data[i].Re * v2_data[i].Re) - (v1_data[i].Im * v2_data[i].Im);
+        int Im = (v1_data[i].Re * v2_data[i].Im) + (v2_data[i].Re * v1_data[i].Im);
         Re_result += Re;
         Im_result += Im;
     }
@@ -85,14 +85,33 @@ Vector* complex_dot_product(Vector* v1, Vector* v2){
     return v_res;
 }
 
+char* to_char_complex(Vector* v){
+
+    Complex* v_data = (Complex *)v->vec->data;
+    int total_size = 1;
+
+    for (int i = 0; i < v->vec->dim; i++){
+        total_size += snprintf(NULL, 0, "(%d + %di) ", v_data[i].Re, abs(v_data[i].Im));
+    }
+
+    char* v_str = (char *)malloc(total_size);
+    char* ptr = v_str;
+    for (int i = 0; i < v->vec->dim; i++){
+        char sign = (v_data[i].Im < 0) ? '-' : '+';
+        ptr += sprintf(ptr, "(%d %c %di) ", v_data[i].Re, sign, abs(v_data[i].Im));
+    }
+
+    return v_str;
+}
+
 
 Vtable* create_complex(){
     Vtable* complex_table = (Vtable *)malloc(sizeof(Vtable));
     complex_table->new = new_complex_vector;
     complex_table->delete = delete_complex_vector;
     complex_table->fill_vector = fill_complex_vector;
-    // complex_table->to_char = to_char_complex;
+    complex_table->to_char = to_char_complex;
     complex_table->add = add_complex; 
-    // complex_table->dot_product = complex_dot_product;
+    complex_table->dot_product = complex_dot_product;
     return complex_table;
 }

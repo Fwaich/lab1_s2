@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
+#include "complex.h"
 #include "int.h"
 //errno.h
 //try...catch
@@ -13,6 +14,7 @@ int main() {
     Vector* vec2 = NULL;
     Vector* vec_res = NULL;
     Vtable* int_type = create_int();
+    Vtable* complex_type = create_complex();
     
     
     int opt;
@@ -32,22 +34,42 @@ int main() {
             while(getchar() != '\n');
         }
 
-        int num = 0;
+        int in_opt = 0;
         int size = 0;
         char* output = NULL;
         switch(opt){
             case 1:
                 delete_vector(vec1);
+
+                printf("1.Int\n2.Complex\n");
+                printf("Выберите тип: ");
+                scanf("%d", &in_opt);
+                if (in_opt > 2 || in_opt < 1) {
+                    printf("Такой опции нет\n");
+                    break;
+                }
+
                 printf("Введите количество эллементов: ");
                 scanf("%d", &size);
-                vec1 = new(int_type, size);
+                
+                vec1 = (in_opt == 1) ? new(int_type, size) : new(complex_type, size);
                 fill_vector(vec1);
                 break; 
             case 2:
                 delete_vector(vec2);
+
+                printf("1.Int\n2.Complex\n");
+                printf("Выберите тип: ");
+                scanf("%d", &in_opt);
+                if (in_opt > 2 || in_opt < 1) {
+                    printf("Такой опции нет\n");
+                    break;
+                }
+
                 printf("Введите количество эллементов: ");
                 scanf("%d", &size);
-                vec2 = new(int_type, size);
+                
+                vec2 = (in_opt == 1) ? new(int_type, size) : new(complex_type, size);
                 fill_vector(vec2);
                 break; 
             case 3:
@@ -67,6 +89,7 @@ int main() {
                 delete_vector(vec2);
                 delete_vector(vec_res);
                 free(int_type);
+                free(complex_type);
                 return 0;
         }
 
