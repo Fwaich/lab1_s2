@@ -41,7 +41,7 @@ int main() {
         char* output = NULL;
         switch(opt){
             case 1:
-                delete_vector(vec1);
+                delete_vector(&vec1);
 
                 printf("1.Int\n2.Complex\n");
                 printf("Выберите тип: ");
@@ -58,7 +58,7 @@ int main() {
                 fill_vector(vec1);
                 break; 
             case 2:
-                delete_vector(vec2);
+                delete_vector(&vec2);
 
                 printf("1.Int\n2.Complex\n");
                 printf("Выберите тип: ");
@@ -75,21 +75,21 @@ int main() {
                 fill_vector(vec2);
                 break; 
             case 3:
-                delete_vector(vec_res);
+                delete_vector(&vec_res);
                 vec_res = add(vec1, vec2);
                 output = to_char(vec_res);
                 if (output) printf("%s\n", output);
                 break; 
             case 4:
-                delete_vector(vec_res);
+                delete_vector(&vec_res);
                 vec_res = dot_product(vec1, vec2);
                 output = to_char(vec_res);
                 if (output) printf("%s\n", output);
                 break;
             case 5:
-                delete_vector(vec1);
-                delete_vector(vec2);
-                delete_vector(vec_res);
+                delete_vector(&vec1);
+                delete_vector(&vec2);
+                delete_vector(&vec_res);
                 free(int_type);
                 free(complex_type);
                 return 0;

@@ -15,19 +15,19 @@ Vector* new_complex_vector(Vtable* t, int sz){
     return v;
 }
 
-void delete_complex_vector(Vector* v){
-
-    if (v->vec) { 
-        if (v->vec->data) {
-            free(v->vec->data);
-            v->vec->data = NULL;
+void delete_complex_vector(Vector** v){
+    
+    if ((*v)->vec) { 
+        if ((*v)->vec->data) {
+            free((*v)->vec->data);
+            (*v)->vec->data = NULL;
         }
-        free(v->vec);
-        v->vec = NULL;
+        free((*v)->vec);
+        (*v)->vec = NULL;
     }
 
-    free(v);
-    v = NULL;
+    free(*v);
+    *v = NULL;
 }
 
 void fill_complex_vector(Vector* v){

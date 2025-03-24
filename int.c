@@ -14,20 +14,21 @@ Vector* new_int_vector(Vtable* t, int sz){
     return v;
 }
 
-void delete_int_vector(Vector* v){
-    
-    if (v->vec) { 
-        if (v->vec->data) {
-            free(v->vec->data);
-            v->vec->data = NULL;
+void delete_int_vector(Vector** v) {
+
+    if ((*v)->vec) { 
+        if ((*v)->vec->data) {
+            free((*v)->vec->data);
+            (*v)->vec->data = NULL;
         }
-        free(v->vec);
-        v->vec = NULL;
+        free((*v)->vec);
+        (*v)->vec = NULL;
     }
 
-    free(v);
-    v = NULL;
+    free(*v);
+    *v = NULL;  // Обнуляем указатель
 }
+
 
 void fill_int_vector(Vector* v){
     for (int i = 0; i < v->vec->dim; i++){

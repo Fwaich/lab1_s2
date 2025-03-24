@@ -12,9 +12,9 @@ Vector* new(Vtable* t, int sz) {
     return t->new(t, sz);
 }
 
-void delete_vector(Vector* v) {
-    if (!v) return; 
-    v->table->delete(v);
+void delete_vector(Vector** v) {
+    if (!(*v)) return; 
+    (*v)->table->delete(v);
 }
 
 void fill_vector(Vector* v){

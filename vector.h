@@ -10,7 +10,7 @@ typedef struct {
 
 typedef struct Vtable{
     Vector* (*new)(Vtable* t, int sz);
-    void (*delete)(Vector* v);
+    void (*delete)(Vector** v);
     void (*fill_vector)(Vector* v);
     void (*from_array)(Vector* v, int num, ...);
     Vector* (*add)(Vector* v1, Vector* v2);
@@ -25,7 +25,7 @@ typedef struct Vector{
 
 Vector* new(Vtable* t, int sz);
 
-void delete_vector(Vector* v);
+void delete_vector(Vector** v);
 
 void fill_vector(Vector* v);
 
