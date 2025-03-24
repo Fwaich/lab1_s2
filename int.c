@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
 #include "int.h"
 
 Vector* new_int_vector(Vtable* t, int sz){
@@ -14,7 +15,7 @@ Vector* new_int_vector(Vtable* t, int sz){
 }
 
 void delete_int_vector(Vector* v){
-    if(!v) return;
+    
     if (v->vec) { 
         if (v->vec->data) {
             free(v->vec->data);
@@ -25,6 +26,7 @@ void delete_int_vector(Vector* v){
     }
 
     free(v);
+    v = NULL;
 }
 
 void fill_int_vector(Vector* v){
@@ -62,6 +64,18 @@ Vector* int_dot_product(Vector* v1, Vector* v2){
     return v_res;
 }
 
+void from_array_int(Vector* v, int num, ...){
+    int* v_data = (int *)v->vec->data;
+    va_list valist;
+    va_start(valist, num);
+    for (int i = 0; i < num; i++){
+        int el = va_arg(valist, int);
+        v_data[i] = el;
+    }
+
+    va_end(valist);
+}
+
 char* to_char_int(Vector* v) {
     if (!v || !v->vec || !v->vec->data) return NULL;
 
@@ -88,6 +102,7 @@ Vtable* create_int(){
     int_table->new = new_int_vector;
     int_table->delete = delete_int_vector;
     int_table->fill_vector = fill_int_vector;
+    int_table->from_array = from_array_int;
     int_table->to_char = to_char_int;
     int_table->add = add_int; 
     int_table->dot_product = int_dot_product;

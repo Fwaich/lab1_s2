@@ -11,6 +11,8 @@ Vector* add_int(Vector* v1, Vector* v2);
 
 Vector* int_dot_product(Vector* v1, Vector* v2);
 
+void from_array_int(Vector* v, int num, ...);
+
 char* to_char_int(Vector* v);
 
 Vtable* create_int();

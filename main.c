@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <assert.h>
 #include "vector.h"
 #include "complex.h"
 #include "int.h"
@@ -52,7 +54,7 @@ int main() {
                 printf("Введите количество эллементов: ");
                 scanf("%d", &size);
                 
-                vec1 = (in_opt == 1) ? new(int_type, size) : new(complex_type, size);
+                vec1 = new((in_opt == 1) ? int_type : complex_type, size);
                 fill_vector(vec1);
                 break; 
             case 2:
@@ -69,7 +71,7 @@ int main() {
                 printf("Введите количество эллементов: ");
                 scanf("%d", &size);
                 
-                vec2 = (in_opt == 1) ? new(int_type, size) : new(complex_type, size);
+                vec2 = new((in_opt == 1) ? int_type : complex_type, size);
                 fill_vector(vec2);
                 break; 
             case 3:
@@ -94,7 +96,11 @@ int main() {
         }
 
         free(output);
-        
+
+        if (errno) {
+            perror("Error");
+            errno = 0;
+        }
 
     }
 

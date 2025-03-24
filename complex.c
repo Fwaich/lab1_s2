@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
 #include "vector.h"
 #include "complex.h"
 
@@ -16,7 +17,6 @@ Vector* new_complex_vector(Vtable* t, int sz){
 
 void delete_complex_vector(Vector* v){
 
-    if(!v) return;
     if (v->vec) { 
         if (v->vec->data) {
             free(v->vec->data);
@@ -27,7 +27,7 @@ void delete_complex_vector(Vector* v){
     }
 
     free(v);
-
+    v = NULL;
 }
 
 void fill_complex_vector(Vector* v){
@@ -85,6 +85,22 @@ Vector* complex_dot_product(Vector* v1, Vector* v2){
     return v_res;
 }
 
+void from_array_complex(Vector* v, int num, ...){
+    Complex* v_data = (Complex *)v->vec->data;
+    va_list valist;
+    va_start(valist, num);
+    for (int i = 0; i < num; i++){
+        int el = va_arg(valist, int);
+        if (i % 2 != 0) {
+            v_data[i].Re = el;
+        } else {
+            v_data[i].Im = el;
+        }
+    }
+
+    va_end(valist);
+}
+
 char* to_char_complex(Vector* v){
 
     Complex* v_data = (Complex *)v->vec->data;
@@ -110,8 +126,9 @@ Vtable* create_complex(){
     complex_table->new = new_complex_vector;
     complex_table->delete = delete_complex_vector;
     complex_table->fill_vector = fill_complex_vector;
-    complex_table->to_char = to_char_complex;
     complex_table->add = add_complex; 
     complex_table->dot_product = complex_dot_product;
+    complex_table->from_array = from_array_complex;
+    complex_table->to_char = to_char_complex;
     return complex_table;
 }
