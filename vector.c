@@ -49,13 +49,13 @@ Vector* add(Vector* v1, Vector* v2){
 
 Vector* dot_product(Vector* v1, Vector* v2){
     if (!v1 || !v2) {
-        fprintf(stderr, "Векторы не инициализированы\n");
+        fprintf(stderr, "Не инициализирован(-ы) вектор(-ы)\n");
         errno = EPERM;
         return NULL;
     } 
 
     if(v1->table != v2->table){
-        fprintf(stderr, "Разные типы");
+        fprintf(stderr, "Разные типы\n");
         errno = EPERM;
         return NULL;
     }

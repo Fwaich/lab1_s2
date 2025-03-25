@@ -78,7 +78,7 @@ void from_array_int(Vector* v, int num, ...){
 }
 
 char* to_char_int(Vector* v) {
-    if (!v || !v->vec || !v->vec->data) return NULL;
+    if (!v->vec || !v->vec->data) return NULL;
 
     int* data = (int*)v->vec->data;
     int total_size = 1;

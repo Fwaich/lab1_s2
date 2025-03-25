@@ -56,7 +56,7 @@ Vector* add_complex(Vector* v1, Vector* v2){
 
     for (int i = 0; i < v1->vec->dim; i++){
         res_data[i].Re = v1_data[i].Re + v2_data[i].Re;
-        res_data[i].Im = v2_data[i].Im + v2_data[i].Im; 
+        res_data[i].Im = v1_data[i].Im + v2_data[i].Im; 
     }
 
     return v_res;
@@ -89,13 +89,9 @@ void from_array_complex(Vector* v, int num, ...){
     Complex* v_data = (Complex *)v->vec->data;
     va_list valist;
     va_start(valist, num);
-    for (int i = 0; i < num; i++){
-        int el = va_arg(valist, int);
-        if (i % 2 != 0) {
-            v_data[i].Re = el;
-        } else {
-            v_data[i].Im = el;
-        }
+    for (int i = 0; i < num / 2; i++) {
+        v_data[i].Re = va_arg(valist, int);
+        v_data[i].Im = va_arg(valist, int);
     }
 
     va_end(valist);
