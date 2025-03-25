@@ -5,9 +5,6 @@
 #include "vector.h"
 #include "complex.h"
 #include "int.h"
-//errno.h
-//try...catch
-//either
 
 
 int main() {
