@@ -29,19 +29,19 @@ void fill_vector(Vecptr v){
 Vecptr add(Vecptr v1, Vecptr v2){
     if (!v1 || !v2) {
         fprintf(stderr, "Не инициализирован(-ы) вектор(-ы)\n");
-        errno = EPERM;
+        errno = EDOM;
         return NULL;
     } 
 
     if(v1->table != v2->table){
         fprintf(stderr, "Разные типы векторов\n");
-        errno = EPERM;
+        errno = EDOM;
         return NULL;
     }
 
     if(v1->vec->dim != v2->vec->dim){
         fprintf(stderr, "Разные размеры векторов\n");
-        errno = EPERM;
+        errno = EDOM;
         return NULL;
     }
 
@@ -51,19 +51,19 @@ Vecptr add(Vecptr v1, Vecptr v2){
 Vecptr dot_product(Vecptr v1, Vecptr v2){
     if (!v1 || !v2) {
         fprintf(stderr, "Не инициализирован(-ы) вектор(-ы)\n");
-        errno = EPERM;
+        errno = EDOM;
         return NULL;
     } 
 
     if(v1->table != v2->table){
         fprintf(stderr, "Разные типы\n");
-        errno = EPERM;
+        errno = EDOM;
         return NULL;
     }
 
     if(v1->vec->dim != v2->vec->dim){
         fprintf(stderr, "Разные размеры векторов\n");
-        errno = EPERM;
+        errno = EDOM;
         return NULL;
     }
 
