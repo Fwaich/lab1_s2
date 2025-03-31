@@ -4,7 +4,8 @@
 #include <errno.h>
 #include <assert.h>
 
-Vector* new(Vtable* t, int sz) {
+
+Vecptr new(Vtable* t, int sz) {
     if (sz <= 0 || !t){
         errno = EINVAL;
         return NULL;
@@ -12,12 +13,12 @@ Vector* new(Vtable* t, int sz) {
     return t->new(t, sz);
 }
 
-void delete_vector(Vector** v) {
+void delete_vector(Vecptr* v) {
     if (!(*v)) return; 
     (*v)->table->delete(v);
 }
 
-void fill_vector(Vector* v){
+void fill_vector(Vecptr v){
     if(!v) {
         errno = EINVAL;
         return;
@@ -25,7 +26,7 @@ void fill_vector(Vector* v){
     return v->table->fill_vector(v);
 }
 
-Vector* add(Vector* v1, Vector* v2){
+Vecptr add(Vecptr v1, Vecptr v2){
     if (!v1 || !v2) {
         fprintf(stderr, "Не инициализирован(-ы) вектор(-ы)\n");
         errno = EPERM;
@@ -47,7 +48,7 @@ Vector* add(Vector* v1, Vector* v2){
     return v1->table->add(v1, v2);
 }
 
-Vector* dot_product(Vector* v1, Vector* v2){
+Vecptr dot_product(Vecptr v1, Vecptr v2){
     if (!v1 || !v2) {
         fprintf(stderr, "Не инициализирован(-ы) вектор(-ы)\n");
         errno = EPERM;
@@ -69,7 +70,7 @@ Vector* dot_product(Vector* v1, Vector* v2){
     return v1->table->dot_product(v1, v2);
 }
 
-char* to_char(Vector* v){
+char* to_char(Vecptr v){
     if(!v) return NULL;
     return v->table->to_char(v);
 }

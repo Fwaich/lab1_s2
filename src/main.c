@@ -9,15 +9,16 @@
 
 int main() {
 
-    Vector* vec1 = NULL;
-    Vector* vec2 = NULL;
-    Vector* vec_res = NULL;
+    Vecptr vec1 = NULL;
+    Vecptr vec2 = NULL;
+    Vecptr vec_res = NULL;
     Vtable* int_type = create_int();
     Vtable* complex_type = create_complex();
     
     
     int opt;
     while (1){
+        printf("\033[33m");
         printf("\n1.Заполнить вектор 1\n");
         printf("2.Заполнить вектор 2\n");
         printf("3.Сумма векторов\n");
@@ -91,7 +92,7 @@ int main() {
                 free(complex_type);
                 return 0;
         }
-
+        fflush(stdout);
         free(output);
 
         if (errno) {

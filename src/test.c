@@ -10,7 +10,7 @@
 void test_new(){
     Vtable* int_type = create_int();
     Vtable* complex_type = create_complex();
-    Vector* vec = NULL;
+    Vecptr vec = NULL;
 
     int expected_size = 5;
 
@@ -35,7 +35,7 @@ void test_new(){
 
 void test_delete(){
     Vtable* int_type = create_int();
-    Vector* vec = NULL;
+    Vecptr vec = NULL;
 
     vec = new(int_type, 5);
     delete_vector(&vec);
@@ -48,9 +48,9 @@ void test_delete(){
 void test_add(){
     Vtable* int_type = create_int();
     Vtable* complex_type = create_complex();
-    Vector* vec1 = NULL;
-    Vector* vec2 = NULL;
-    Vector* vec_res = NULL;
+    Vecptr vec1 = NULL;
+    Vecptr vec2 = NULL;
+    Vecptr vec_res = NULL;
 
     fprintf(stderr, "add():\n");
 
@@ -120,9 +120,9 @@ void test_add(){
 void test_dot_product(){
     Vtable* int_type = create_int();
     Vtable* complex_type = create_complex();
-    Vector* vec1 = NULL;
-    Vector* vec2 = NULL;
-    Vector* vec_res = NULL;
+    Vecptr vec1 = NULL;
+    Vecptr vec2 = NULL;
+    Vecptr vec_res = NULL;
 
     fprintf(stderr, "dot_product():\n");
 
@@ -182,7 +182,7 @@ void test_dot_product(){
 void test_to_char(){
     Vtable* int_type = create_int();
     Vtable* complex_type = create_complex();
-    Vector* vec = NULL;
+    Vecptr vec = NULL;
     char* output = NULL;
 
     vec = new(int_type, 3);

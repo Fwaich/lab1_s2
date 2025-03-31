@@ -1,7 +1,9 @@
 #pragma once
 
+
 typedef struct Vector Vector;
 typedef struct Vtable Vtable;
+typedef Vector* Vecptr;
 
 typedef struct {
     unsigned short dim;
@@ -9,13 +11,13 @@ typedef struct {
 }Vector_data;
 
 typedef struct Vtable{
-    Vector* (*new)(Vtable* t, int sz);
-    void (*delete)(Vector** v);
-    void (*fill_vector)(Vector* v);
-    void (*from_array)(Vector* v, int num, ...);
-    Vector* (*add)(Vector* v1, Vector* v2);
-    Vector* (*dot_product)(Vector* v1, Vector* v2);
-    char* (*to_char)(Vector* v);
+    Vecptr (*new)(Vtable* t, int sz);
+    void (*delete)(Vecptr* v);
+    void (*fill_vector)(Vecptr v);
+    void (*from_array)(Vecptr v, int num, ...);
+    Vecptr (*add)(Vecptr v1, Vecptr v2);
+    Vecptr (*dot_product)(Vecptr v1, Vecptr v2);
+    char* (*to_char)(Vecptr v);
 }Vtable;
     
 typedef struct Vector{
@@ -23,14 +25,14 @@ typedef struct Vector{
     Vtable* table;
 }Vector;
 
-Vector* new(Vtable* t, int sz);
+Vecptr new(Vtable* t, int sz);
 
-void delete_vector(Vector** v);
+void delete_vector(Vecptr* v);
 
-void fill_vector(Vector* v);
+void fill_vector(Vecptr v);
 
-Vector* add(Vector* v1, Vector* v2);
+Vecptr add(Vecptr v1, Vecptr v2);
 
-Vector* dot_product(Vector* v1, Vector* v2);
+Vecptr dot_product(Vecptr v1, Vecptr v2);
 
-char* to_char(Vector* v);
+char* to_char(Vecptr v);

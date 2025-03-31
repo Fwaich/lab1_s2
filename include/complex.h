@@ -6,16 +6,16 @@ typedef struct Complex{
     int Im;
 }Complex;
 
-Vector* new_complex_vector(Vtable* t, int sz);
+Vecptr new_complex_vector(Vtable* t, int sz);
 
-void delete_complex_vector(Vector** v);
+void delete_complex_vector(Vecptr* v);
 
-void fill_complex_vector(Vector* v);
+void fill_complex_vector(Vecptr v);
 
-Vector* add_complex(Vector* v1, Vector* v2);
+Vecptr add_complex(Vecptr v1, Vecptr v2);
 
-Vector* complex_dot_product(Vector* v1, Vector* v2);
+Vecptr complex_dot_product(Vecptr v1, Vecptr v2);
 
-char* to_char_complex(Vector* v);
+char* to_char_complex(Vecptr v);
 
 Vtable* create_complex();

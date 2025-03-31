@@ -5,8 +5,8 @@
 #include "vector.h"
 #include "complex.h"
 
-Vector* new_complex_vector(Vtable* t, int sz){
-    Vector* v = (Vector *)malloc(sizeof(Vector));
+Vecptr new_complex_vector(Vtable* t, int sz){
+    Vecptr v = (Vecptr)malloc(sizeof(Vector));
     Vector_data* v_data = (Vector_data *)malloc(sizeof(Vector_data));
     v->vec = v_data;
     v->table = t;
@@ -15,7 +15,7 @@ Vector* new_complex_vector(Vtable* t, int sz){
     return v;
 }
 
-void delete_complex_vector(Vector** v){
+void delete_complex_vector(Vecptr* v){
     
     if ((*v)->vec) { 
         if ((*v)->vec->data) {
@@ -30,7 +30,7 @@ void delete_complex_vector(Vector** v){
     *v = NULL;
 }
 
-void fill_complex_vector(Vector* v){
+void fill_complex_vector(Vecptr v){
     for (int i = 0; i < v->vec->dim; i++){
 
         printf("Re[%d]: ", i);
@@ -48,8 +48,8 @@ void fill_complex_vector(Vector* v){
     }
 }
 
-Vector* add_complex(Vector* v1, Vector* v2){
-    Vector* v_res = v1->table->new(v1->table, v1->vec->dim);
+Vecptr add_complex(Vecptr v1, Vecptr v2){
+    Vecptr v_res = v1->table->new(v1->table, v1->vec->dim);
     Complex* v1_data = (Complex *)v1->vec->data;
     Complex* v2_data = (Complex *)v2->vec->data;
     Complex* res_data = (Complex *)v_res->vec->data;
@@ -63,8 +63,8 @@ Vector* add_complex(Vector* v1, Vector* v2){
 }
 
 
-Vector* complex_dot_product(Vector* v1, Vector* v2){
-    Vector* v_res = v1->table->new(v1->table, 1);
+Vecptr complex_dot_product(Vecptr v1, Vecptr v2){
+    Vecptr v_res = v1->table->new(v1->table, 1);
     Complex* v1_data = (Complex *)v1->vec->data;
     Complex* v2_data = (Complex *)v2->vec->data;
     Complex* res_data = (Complex *)v_res->vec->data;
@@ -85,7 +85,7 @@ Vector* complex_dot_product(Vector* v1, Vector* v2){
     return v_res;
 }
 
-void from_array_complex(Vector* v, int num, ...){
+void from_array_complex(Vecptr v, int num, ...){
     Complex* v_data = (Complex *)v->vec->data;
     va_list valist;
     va_start(valist, num);
@@ -97,7 +97,7 @@ void from_array_complex(Vector* v, int num, ...){
     va_end(valist);
 }
 
-char* to_char_complex(Vector* v){
+char* to_char_complex(Vecptr v){
 
     Complex* v_data = (Complex *)v->vec->data;
     int total_size = 1;

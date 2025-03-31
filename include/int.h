@@ -1,18 +1,18 @@
 #pragma once
 #include "vector.h"
 
-Vector* new_int_vector(Vtable* t, int sz);
+Vecptr new_int_vector(Vtable* t, int sz);
 
-void delete_int_vector(Vector** v);
+void delete_int_vector(Vecptr* v);
 
-void fill_int_vector(Vector* v);
+void fill_int_vector(Vecptr v);
 
-Vector* add_int(Vector* v1, Vector* v2);
+Vecptr add_int(Vecptr v1, Vecptr v2);
 
-Vector* int_dot_product(Vector* v1, Vector* v2);
+Vecptr int_dot_product(Vecptr v1, Vecptr v2);
 
-void from_array_int(Vector* v, int num, ...);
+void from_array_int(Vecptr v, int num, ...);
 
-char* to_char_int(Vector* v);
+char* to_char_int(Vecptr v);
 
 Vtable* create_int();

@@ -4,8 +4,8 @@
 #include <stdarg.h>
 #include "int.h"
 
-Vector* new_int_vector(Vtable* t, int sz){
-    Vector* v = (Vector *)malloc(sizeof(Vector));
+Vecptr new_int_vector(Vtable* t, int sz){
+    Vecptr v = (Vecptr)malloc(sizeof(Vector));
     Vector_data* v_data = (Vector_data *)malloc(sizeof(Vector_data));
     v->vec = v_data;
     v->table = t;
@@ -14,7 +14,7 @@ Vector* new_int_vector(Vtable* t, int sz){
     return v;
 }
 
-void delete_int_vector(Vector** v) {
+void delete_int_vector(Vecptr* v) {
 
     if ((*v)->vec) { 
         if ((*v)->vec->data) {
@@ -30,7 +30,7 @@ void delete_int_vector(Vector** v) {
 }
 
 
-void fill_int_vector(Vector* v){
+void fill_int_vector(Vecptr v){
     for (int i = 0; i < v->vec->dim; i++){
         int value;
         scanf("%d", &value);
@@ -38,8 +38,8 @@ void fill_int_vector(Vector* v){
     }
 }
 
-Vector* add_int(Vector* v1, Vector* v2){
-    Vector* v_res = v1->table->new(v1->table, v1->vec->dim);
+Vecptr add_int(Vecptr v1, Vecptr v2){
+    Vecptr v_res = v1->table->new(v1->table, v1->vec->dim);
     int* v1_data = (int *)v1->vec->data;
     int* v2_data = (int *)v2->vec->data;
 
@@ -51,8 +51,8 @@ Vector* add_int(Vector* v1, Vector* v2){
     return v_res;
 }
 
-Vector* int_dot_product(Vector* v1, Vector* v2){
-    Vector* v_res = v1->table->new(v1->table, 1);
+Vecptr int_dot_product(Vecptr v1, Vecptr v2){
+    Vecptr v_res = v1->table->new(v1->table, 1);
     int* v1_data = (int *)v1->vec->data;
     int* v2_data = (int *)v2->vec->data;
     int result = 0;
@@ -65,7 +65,7 @@ Vector* int_dot_product(Vector* v1, Vector* v2){
     return v_res;
 }
 
-void from_array_int(Vector* v, int num, ...){
+void from_array_int(Vecptr v, int num, ...){
     int* v_data = (int *)v->vec->data;
     va_list valist;
     va_start(valist, num);
@@ -77,7 +77,7 @@ void from_array_int(Vector* v, int num, ...){
     va_end(valist);
 }
 
-char* to_char_int(Vector* v) {
+char* to_char_int(Vecptr v) {
     if (!v->vec || !v->vec->data) return NULL;
 
     int* data = (int*)v->vec->data;
